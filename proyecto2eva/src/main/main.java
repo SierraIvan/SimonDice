@@ -7,28 +7,64 @@ public class main {
 
 	
 	enum tColores{Rojo,Verde,Azul,Dorado}
+	int MAX_COLORES_SEQ = 12;
+	tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 	
-	tColores[] secuenciaColores = new tColores[12];
 	
 
+	public static tColores charColores (char _colores) {
+		tColores eleccion = null;
+		char letraColores;
+		switch (letraColores){
+		case 'R':
+			eleccion=tColores.Rojo;
+			break;
+		case 'V':
+			eleccion=tColores.Verde;
+			break;
+		case 'A':
+			eleccion=tColores.Azul;
+			break;
+		case 'D':
+			eleccion=tColores.Dorado;
+			break;
+		default:
+			System.out.println("Color incorrecto");
+		}
+		return eleccion;
+	}
+	
+	
 	/*Para generar la secuencia de colores aleatoria*/
 	public void generarSecuencia(int _numColores) {
 		Random aleatorio = new Random();
+		int i = secuenciaColores[aleatorio];
 		
 		
 	}
+	
+	
+	
+	public void mostrarSecuencia (){
+		
+	}
+	
+	public boolean comprobarColor() {
+		
+	}
+	
 
-
+	public void play() {
+		
+	}
+	
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 
-		 tColores R = tColores.Rojo;
-		 tColores V = tColores.Verde;
-		 tColores A = tColores.Azul;
-		 tColores D = tColores.Dorado;
 		
+	
 		
-
 		
 		System.out.println("Welcome to Simon dice");
 		System.out.println("What is you name? ");
@@ -37,21 +73,6 @@ public class main {
 		System.out.println("Hello " + nombre + ", press ENTER to start playing");
 		
 		
-
-		System.out.println(R + " --- " + D);
-		Scanner colores = new Scanner(System.in);
-		char color = colores.next().charAt(0);
-		char color2= colores.next().charAt(0);
-		
-		if(color == 'R') {
-			if(color2 == 'D') {
-				System.out.println("Ganaste");
-			}else {
-				System.out.println("Perdiste");
-			}
-		}else {
-			System.out.println("Perdiste");
-		}
 		
 	}
 	
