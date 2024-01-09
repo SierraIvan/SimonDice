@@ -5,16 +5,23 @@ import java.util.Scanner;
 
 public class main {
 
+	public static final String ROJO = "\u001B[31m";
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub		
+	
+		play();
+	}
 	
 	enum tColores{Rojo,Verde,Azul,Dorado}
-	int MAX_COLORES_SEQ = 12;
-	tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
+	static int MAX_COLORES_SEQ = 12;
+	static tColores[] secuenciaColores = new tColores[4];
 	
 	
 
 	public static tColores charColores (char _colores) {
 		tColores eleccion = null;
-		char letraColores;
+		char letraColores = _colores;
 		switch (letraColores){
 		case 'R':
 			eleccion=tColores.Rojo;
@@ -35,42 +42,69 @@ public class main {
 	}
 	
 	
-	/*Para generar la secuencia de colores aleatoria*/
-	public void generarSecuencia(int _numColores) {
-		Random aleatorio = new Random();
-		int i = secuenciaColores[aleatorio];
-		
-		
+	private static tColores intToColor (int _numero) {
+		tColores numeros = null;
+			switch (_numero) {
+			case 0:
+				numeros	= tColores.Rojo;
+				break;
+			case 1:
+				numeros = tColores.Verde;
+				break;
+			case 2:
+				numeros	= tColores.Azul;
+				break;
+			case 3:
+				numeros = tColores.Dorado;
+				break;
+			default:
+				System.out.println("ERROR");
+			}
+			
+			return numeros;
 	}
 	
 	
+	public static void generarSecuencia(int _numColores) {
+		
+		int limite = MAX_COLORES_SEQ - 1;
+		for (int i = 0; i < secuenciaColores.length; i++) {
+			Random random = new Random();
+			int aleatorio = random.nextInt(0,3);
+            secuenciaColores[i] = intToColor(aleatorio);
+        }
+		}
+			
 	
-	public void mostrarSecuencia (){
+	public boolean comprobarColor(int _index, tColores _color) {
+		
+		return secuenciaColores[_index] == _color;
+		
 		
 	}
+	public static void mostrarSecuencia (int _numero){
 	
-	public boolean comprobarColor() {
-		
+		for(int i = 0; i < _numero; i++) {
+			System.out.print(secuenciaColores[i] + "-");
+		}
 	}
 	
 
-	public void play() {
-		
-	}
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub		
-
+	public static void play() {
 		
 	
-		
-		
+	
 		System.out.println("Welcome to Simon dice");
 		System.out.println("What is you name? ");
 		Scanner nombrejugador = new Scanner(System.in);
 		String nombre = nombrejugador.nextLine();
 		System.out.println("Hello " + nombre + ", press ENTER to start playing");
+		
+        
+		generarSecuencia(12);
+		
+		mostrarSecuencia(4);
+		
 		
 		
 		
