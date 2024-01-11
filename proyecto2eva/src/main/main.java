@@ -15,7 +15,7 @@ public class main {
 	
 	enum tColores{Rojo,Verde,Azul,Dorado}
 	static int MAX_COLORES_SEQ = 12;
-	static tColores[] secuenciaColores = new tColores[4];
+	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 	
 	
 
