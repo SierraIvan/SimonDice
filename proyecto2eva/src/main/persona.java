@@ -1,8 +1,14 @@
 package main;
 
+/**
+ * Simon dice, proyecto 2ªEVA
+ * @author Iván Sierra Pérez
+ */
+
 public class persona {
 	
-	private static String name;
+	private String name;
+	public int puntuacion = 0;
 	
 	public String getName() {
 		return this.name;
