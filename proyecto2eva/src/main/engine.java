@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 /**
  * Simon dice, proyecto 2ªEVA
- * @author Iván Sierra Pérez
+ * 
+ * @author Ivan Sierra Perez
  */
 
 public class engine {
@@ -21,7 +22,7 @@ public class engine {
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
-	static int MAX_COLORES_SEQ = 12;
+	static int MAX_COLORES_SEQ = 4;
 	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
 	/**
@@ -31,7 +32,7 @@ public class engine {
 	 * @param _colores
 	 * @return
 	 */
-	public tColores charToColores(char _colores) {
+	private tColores charToColores(char _colores) {
 		tColores eleccion = null;
 		char letraColores = Character.toLowerCase(_colores);
 		switch (letraColores) {
@@ -86,9 +87,8 @@ public class engine {
 	 * 
 	 * @param _numColores
 	 */
-	public void generarSecuencia(int _numColores) {
+	private void generarSecuencia(int _numColores) {
 
-		int limite = MAX_COLORES_SEQ - 1;
 		for (int i = 0; i < secuenciaColores.length; i++) {
 			Random random = new Random();
 			int aleatorio = random.nextInt(0, 4);
@@ -99,11 +99,11 @@ public class engine {
 	/**
 	 * metodo para comprobar si el usuario ha acertado el color
 	 * 
-	 * @param _index
+	 * @param _index sirve para comprobar el array de color
 	 * @param _color
 	 * @return
 	 */
-	public boolean comprobarColor(int _index, tColores _color) {
+	private boolean comprobarColor(int _index, tColores _color) {
 
 		return secuenciaColores[_index] == _color;
 
@@ -114,7 +114,7 @@ public class engine {
 	 * 
 	 * @param _numero
 	 */
-	public void mostrarSecuencia(int _numero) {
+	private void mostrarSecuencia(int _numero) {
 
 		for (int i = 0; i < _numero; i++) {
 			System.out.print(secuenciaColores[i] + " ");
@@ -124,8 +124,20 @@ public class engine {
 	/**
 	 * metodo para mostrar el menu de inicio
 	 */
-	public void menu() {
+	private void menu() {
 		System.out.println("1 - Salir || 2 - jugar");
+
+		char menu = new Scanner(System.in).next().charAt(0);
+
+		if (menu == '1') {
+			System.out.println("Saliste con exito");
+			System.exit(0);
+		} else if (menu == '2') {
+			play();
+		} else {
+			System.out.println("Opcion no disponible");
+			menu();
+		}
 	}
 
 	/**
@@ -138,64 +150,55 @@ public class engine {
 		Scanner nombrejugador = new Scanner(System.in);
 		String nombre = nombrejugador.nextLine();
 		System.out.println("Hello " + nombre);
-
-		play();
+		menu();
 	}
+	
+		
 	/**
 	 * metodo de funcionamiento del juego
 	 */
-	public void play() {
-		menu();
+	private void play() {
 
-		Scanner menu = new Scanner(System.in);
-		int menus = menu.nextInt();
+		generarSecuencia(12);
 
-		if (menus == 1) {
-			System.out.println("saliste");
-		} else if (menus == 2) {
+		for (int i = 0; i < MAX_COLORES_SEQ - 2; i++) {
 
-			generarSecuencia(12);
-
-			for (int i = 0; i < MAX_COLORES_SEQ - 2; i++) {
-
-				System.out.println("Presiona ENTER jugar...	");
-				new Scanner(System.in).nextLine();
-
-				for (int k = 0; k < 30; k++) {
-					System.out.println();
-				}
-				mostrarSecuencia(3 + i);
+			System.out.println("Presiona ENTER jugar...	");
+			new Scanner(System.in).nextLine();
+			for (int k = 0; k < 30; k++) {
 				System.out.println();
-
-				int numsecuencia = i + 1;
-
-				System.out.println("Presiona ENTER cuando memorices la secuencia " + numsecuencia);
-				new Scanner(System.in).nextLine();
-
-				for (int k = 0; k < 30; k++) {
-					System.out.println();
-				}
-
-				System.out.println("Introduce la secuencia");
-
-				for (int j = 0; j < 3 + i; j++) {
-					System.out.println("Introduce el color en la posición " + (j + 1) + ": ");
-					char ColorUsuario = new Scanner(System.in).next().charAt(0);
-					tColores colorSeleccionado = charToColores(ColorUsuario);
-
-					if (comprobarColor(j, colorSeleccionado)) {
-						System.out.println("¡Correcto!");
-					} else {
-						System.out.println("Incorrecto. El juego termina.");
-						play();
-						return;
-					}
-				}
 			}
-		} else {
-			System.out.println("Opcion no disponible");
+			mostrarSecuencia(3 + i);
+			System.out.println();
+
+			int numerosecuencia = i + 1;
+
+			System.out.println("Presiona ENTER cuando memorices la secuencia " + numerosecuencia);
+			new Scanner(System.in).nextLine();
+
+			for (int k = 0; k < 30; k++) {
+				System.out.println();
+			}
+
+			System.out.println("Introduce la secuencia");
+
+			for (int j = 0; j < 3 + i; j++) {
+				System.out.println("Introduce el color en la posición " + (j + 1) + ": ");
+				char ColorUsuario = new Scanner(System.in).next().charAt(0);
+				tColores colorSeleccionado = charToColores(ColorUsuario);
+
+				if (comprobarColor(j, colorSeleccionado)) {
+					System.out.println("¡Correcto!");
+				} else {
+					System.out.println("Incorrecto");
+					menu();
+				}
+				
+			}
+			if (i == MAX_COLORES_SEQ - 3) {
+				System.out.println("Has ganado, eres una fiera");
+			}
 		}
 
 	}
-
 }

@@ -2,7 +2,7 @@ package main;
 import java.util.Scanner;
 /**
  * Simon dice, proyecto 2ªEVA
- * @author Iván Sierra Pérezz
+ * @author Ivan Sierra Perez
  */
 public class main {
 
