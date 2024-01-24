@@ -10,9 +10,8 @@ public class jugador {
 		public String nombre;
 		public int puntuacion;
 		
-		public jugador(String nombre, int puntuacion) {
+		public jugador(String nombre) {
 			this.nombre= nombre;
-			this.puntuacion = puntuacion;
 		}
 
 
