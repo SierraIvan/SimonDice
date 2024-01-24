@@ -1,5 +1,4 @@
 package main;
-import java.util.Scanner;
 /**
  * Simon dice, proyecto 2ªEVA
  * @author Ivan Sierra Perez

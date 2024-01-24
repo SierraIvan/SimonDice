@@ -22,7 +22,8 @@ public class engine {
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
-	static int MAX_COLORES_SEQ = 4;
+	static int MAX_COLORES_SEQ = 12;
+
 	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
 	/**
@@ -144,16 +145,15 @@ public class engine {
 	 * metodo de inicio del juego
 	 */
 	public void start() {
-
-		System.out.println("Welcome to Simon dice");
-		System.out.println("What is you name? ");
-		Scanner nombrejugador = new Scanner(System.in);
-		String nombre = nombrejugador.nextLine();
-		System.out.println("Hello " + nombre);
+		Scanner nombre = new Scanner(System.in);
+		System.out.println("Bienvenido a Simon dice");
+		System.out.println("Como te llamas ");
+		jugador nombrejugador = new jugador(nombre.nextLine());
+		System.out.println(nombrejugador.getNombre());
 		menu();
+		nombre.close();
 	}
-	
-		
+
 	/**
 	 * metodo de funcionamiento del juego
 	 */
@@ -161,7 +161,7 @@ public class engine {
 
 		generarSecuencia(12);
 
-		for (int i = 0; i < MAX_COLORES_SEQ - 2; i++) {
+		for (int i = 0; i < secuenciaColores.length - 2; i++) {
 
 			System.out.println("Presiona ENTER jugar...	");
 			new Scanner(System.in).nextLine();
@@ -193,9 +193,9 @@ public class engine {
 					System.out.println("Incorrecto");
 					menu();
 				}
-				
+
 			}
-			if (i == MAX_COLORES_SEQ - 3) {
+			if (i == secuenciaColores.length - 3) {
 				System.out.println("Has ganado, eres una fiera");
 			}
 		}
