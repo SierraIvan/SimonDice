@@ -22,9 +22,9 @@ public class engine {
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
-	static int MAX_COLORES_SEQ = 12;
+	private int MAX_COLORES_SEQ = 12;
 
-	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
+	private tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
 	/**
 	 * metodo que proporcionamos la primera letra de cada color y nos devuelve un
@@ -107,7 +107,6 @@ public class engine {
 	private boolean comprobarColor(int _index, tColores _color) {
 
 		return secuenciaColores[_index] == _color;
-
 	}
 
 	/**
