@@ -234,10 +234,10 @@ public class engine {
 
 			System.out.println("Introduce la secuencia");
 
-			int j = 0;
-			while(j < 2 + i) {
+			int j = -1;
+			while(j < 1 + i) {
 				j++;
-				System.out.println("Introduce el color en la posición " + (j) + ": ");
+				System.out.println("Introduce el color en la posición " + (j + 1) + ": ");
 				System.out.println("Introduce 'X' para tener una pista (tienes " + pistas + " pistas)");
 				char ColorUsuario = new Scanner(System.in).next().charAt(0);
 				tColores colorSeleccionado = charToColores(ColorUsuario);
@@ -252,10 +252,11 @@ public class engine {
 						menu();
 					}
 				} else if (pistas > 0) {
+					
 					System.out.println(secuenciaColores[j]);
 					pistas--;
 				}else if(pistas == 0) {
-					System.out.println("no tienes pistas");
+					System.out.println("no tienes mas pistas");
 					j--;
 				}
 				
