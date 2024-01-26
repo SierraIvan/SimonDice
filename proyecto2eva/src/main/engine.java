@@ -22,7 +22,7 @@ public class engine {
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
-	private int MAX_COLORES_SEQ = 12;
+	private int MAX_COLORES_SEQ = 5;
 
 	private tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
@@ -85,14 +85,13 @@ public class engine {
 	/**
 	 * metodo para generar un array con numeros aleatorios que funciona con el
 	 * metodo anterior
-	 * 
 	 * @param _numColores
 	 */
 	private void generarSecuencia(int _numColores) {
 
 		for (int i = 0; i < secuenciaColores.length; i++) {
 			Random random = new Random();
-			int aleatorio = random.nextInt(0, 4);
+			int aleatorio = random.nextInt(0, _numColores);
 			secuenciaColores[i] = intToColor(aleatorio);
 		}
 	}
@@ -111,7 +110,6 @@ public class engine {
 
 	/**
 	 * metodo para mostar la secuencia
-	 * 
 	 * @param _numero
 	 */
 	private void mostrarSecuencia(int _numero) {
@@ -125,20 +123,26 @@ public class engine {
 	 * metodo para mostrar el menu de inicio
 	 */
 	private void menu() {
-		System.out.println("1 - Salir || 2 - jugar");
 
-		char menu = new Scanner(System.in).next().charAt(0);
+		char menu;
+	    do {
+	        System.out.println("1 - Salir || 2 - Jugar");
+	        menu = new Scanner(System.in).next().charAt(0);
 
-		if (menu == '1') {
-			System.out.println("Saliste con exito");
-			System.exit(0);
-		} else if (menu == '2') {
-			play();
-		} else {
-			System.out.println("Opcion no disponible");
-			menu();
-		}
+	        if (menu == '1') {
+	            System.out.println("Saliste con éxito");
+	            System.exit(0);
+	        } else if (menu == '2') {
+	            generarSecuencia(3);
+	            play();
+	        } else {
+	            System.out.println("No válido");
+	        }
+
+	    } while (menu != '1' && menu != '2');
 	}
+
+
 
 	/**
 	 * metodo de inicio del juego
@@ -157,22 +161,18 @@ public class engine {
 	 * metodo de funcionamiento del juego
 	 */
 	private void play() {
-
-		generarSecuencia(12);
-
-		for (int i = 0; i < secuenciaColores.length - 2; i++) {
-
+		int i = 0;
+		while ( i < secuenciaColores.length - 2) {
+			i++;
 			System.out.println("Presiona ENTER jugar...	");
 			new Scanner(System.in).nextLine();
 			for (int k = 0; k < 30; k++) {
 				System.out.println();
 			}
-			mostrarSecuencia(3 + i);
+			mostrarSecuencia(2 + i);
 			System.out.println();
 
-			int numerosecuencia = i + 1;
-
-			System.out.println("Presiona ENTER cuando memorices la secuencia " + numerosecuencia);
+			System.out.println("Presiona ENTER cuando memorices la secuencia " + i);
 			new Scanner(System.in).nextLine();
 
 			for (int k = 0; k < 30; k++) {
@@ -181,12 +181,14 @@ public class engine {
 
 			System.out.println("Introduce la secuencia");
 
-			for (int j = 0; j < 3 + i; j++) {
-				System.out.println("Introduce el color en la posición " + (j + 1) + ": ");
+			int j = 0;
+			while(j < 2 + i) {
+				j++;
+				System.out.println("Introduce el color en la posición " + (j) + ": ");
 				char ColorUsuario = new Scanner(System.in).next().charAt(0);
 				tColores colorSeleccionado = charToColores(ColorUsuario);
 
-				if (comprobarColor(j, colorSeleccionado)) {
+				if (comprobarColor(j - 1, colorSeleccionado)) {
 					System.out.println("¡Correcto!");
 				} else {
 					System.out.println("Incorrecto");
@@ -194,8 +196,9 @@ public class engine {
 				}
 
 			}
-			if (i == secuenciaColores.length - 3) {
+			if (i == secuenciaColores.length - 2) {
 				System.out.println("Has ganado, eres una fiera");
+				menu();
 			}
 		}
 
