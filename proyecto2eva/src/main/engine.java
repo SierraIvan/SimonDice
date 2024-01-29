@@ -170,7 +170,7 @@ public class engine {
 	    do {
 	        System.out.println("1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
 	        menu = new Scanner(System.in).next().charAt(0);
-
+	        int puntuar;
 	        tModo modos = null;
 			switch (menu) {
 			case '1':
@@ -180,12 +180,14 @@ public class engine {
 			case '2':
 				//modos = MAX_COLORES_FACIL;
 				generarSecuencia(MAX_COLORES_FACIL);
-				play();
+				puntuar = 1;
+				play(puntuar);
 				break;
 			case '3':
 				//modos = MAX_COLORES_DIFICIL;
 				generarSecuencia(MAX_COLORES_DIFICIL);
-				play();
+				puntuar = 2;
+				play(puntuar);
 				break;
 			default:
 				System.out.println("Opcion no disponible");
@@ -212,14 +214,15 @@ public class engine {
 	/**
 	 * metodo de funcionamiento del juego
 	 */
-	private void play() {
+	private void play(int puntuar) {
+		int puntuacion = 0;
 		int pistas = 3;
 		int i = 0;
 		while (i < secuenciaColores.length - 2) {
 			 i++;
 			System.out.println("Presiona ENTER jugar...	");
 			new Scanner(System.in).nextLine();
-			for (int k = 0; k < 30; k++) {
+			for (int k = 0; k < 10; k++) {
 				System.out.println();
 			}
 			mostrarSecuencia(2 + i);
@@ -228,7 +231,7 @@ public class engine {
 			System.out.println("Presiona ENTER cuando memorices la secuencia " + i);
 			new Scanner(System.in).nextLine();
 
-			for (int k = 0; k < 30; k++) {
+			for (int k = 0; k < 10; k++) {
 				System.out.println();
 			}
 
@@ -243,18 +246,26 @@ public class engine {
 				tColores colorSeleccionado = charToColores(ColorUsuario);
 
 				do {
-				if (ColorUsuario != 'x') {
+				if (ColorUsuario != 'x'|| ColorUsuario !='X') {
 
 					if (comprobarColor(j, colorSeleccionado)) {
 						System.out.println("¡Correcto!");
+						puntuacion = puntuacion + (2 * puntuar);
 					} else {
+						jugador.puntuacion = puntuacion;
 						System.out.println("Incorrecto");
+						System.out.println(jugador.getPuntuacion());
 						menu();
 					}
 				} else if (pistas > 0) {
 					
 					System.out.println(secuenciaColores[j]);
 					pistas--;
+					if(puntuacion < 8) {
+						puntuacion = 0;
+					}else {
+						puntuacion = puntuacion - (8 * puntuar);
+					}
 				}else if(pistas == 0) {
 					System.out.println("no tienes mas pistas");
 					j--;
@@ -262,9 +273,14 @@ public class engine {
 				
 				}while(pistas < 0);
 
-			
+				if(j == 1 + i) {
+					puntuacion = puntuacion + (5 * puntuar);
+				}
 			if (i == secuenciaColores.length - 3) {
 				System.out.println("Has ganado, eres una fiera");
+				puntuacion = puntuacion + (40 * puntuar);
+				jugador.puntuacion = puntuacion;
+				System.out.println(jugador.getPuntuacion());
 			}
 			
 		}

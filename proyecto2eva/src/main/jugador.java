@@ -8,10 +8,10 @@ public class jugador {
 
 		
 		public String nombre;
-		public int puntuacion;
+		public static int puntuacion;
 		
 		public jugador(String nombre) {
-			this.nombre= nombre;
+			this.nombre = nombre;
 		}
 
 
@@ -19,8 +19,8 @@ public class jugador {
 			return "Bienvenido " + this.nombre;
 		}
 		
-		public int getPuntuacion() {
-			return this.puntuacion;
+		public static String getPuntuacion() {
+			return "tienes un total de " + jugador.puntuacion + " puntos";
 		}
 	
 	
