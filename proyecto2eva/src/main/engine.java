@@ -17,19 +17,27 @@ public class engine {
 	enum tColores {
 		Rojo, Verde, Azul, Dorado, Blanco, Marron, Naranja
 	}
-
+/**
+ * enum de los modos que se usa
+ */
 	enum tModo {
 		Facil, Dificil
 	}
+/**
+ * variables inicializadas ya que se usan en mas de 1 metodo
+ */
+	static int MAX_COLORES_SEQ = 15;
+	static final int MAX_COLORES_FACIL = 4;
+	static final int MAX_COLORES_DIFICIL = 7;
+	static int puntuacion = 0;
+	static int pistas = 3;
+	static int puntuar;
 
 	/**
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
-	static int MAX_COLORES_SEQ = 15;
-	static final int MAX_COLORES_FACIL = 4;
-	static final int MAX_COLORES_DIFICIL = 7;
-
+	
 	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
 	/**
@@ -39,7 +47,7 @@ public class engine {
 	 * @param _colores
 	 * @return
 	 */
-	private tColores charToColores(char _colores) {
+	public tColores charToColores(char _colores) {
 		tColores eleccion = null;
 		char letraColores = Character.toLowerCase(_colores);
 		switch (letraColores) {
@@ -77,7 +85,7 @@ public class engine {
 	 * @param _numero
 	 * @return
 	 */
-	private tColores intToColor(int _numero) {
+	public tColores intToColor(int _numero) {
 		tColores numeros = null;
 		switch (_numero) {
 		case 0:
@@ -106,7 +114,12 @@ public class engine {
 		return numeros;
 	}
 
-	private tModo intToModo(int _modos) {
+	/**
+	 * metodo para elegir el modo que esta activo en el juego
+	 * @param _modos
+	 * @return
+	 */
+	public tModo intToModo(int _modos) {
 		tModo modos = null;
 		switch (_modos) {
 		case 1:
@@ -125,7 +138,7 @@ public class engine {
 	 * 
 	 * @param _numColores
 	 */
-	private void generarSecuencia(int _numColores) {
+	public void generarSecuencia(int _numColores) {
 
 		for (int i = 0; i < secuenciaColores.length; i++) {
 			Random random = new Random();
@@ -136,12 +149,11 @@ public class engine {
 
 	/**
 	 * metodo para comprobar si el usuario ha acertado el color
-	 * 
 	 * @param _index sirve para comprobar el array de color
 	 * @param _color
 	 * @return
 	 */
-	private boolean comprobarColor(int _index, tColores _color) {
+	public boolean comprobarColor(int _index, tColores _color) {
 
 		return secuenciaColores[_index] == _color;
 
@@ -152,7 +164,7 @@ public class engine {
 	 * 
 	 * @param _numero
 	 */
-	private void mostrarSecuencia(int _numero) {
+	public void mostrarSecuencia(int _numero) {
 
 		for (int i = 0; i < _numero; i++) {
 			System.out.print(secuenciaColores[i] + " ");
@@ -162,39 +174,55 @@ public class engine {
 	/**
 	 * metodo para mostrar el menu de inicio
 	 */
-	
-	
+
 	public void menu() {
 
 		char menu;
-	    do {
-	        System.out.println("1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
-	        menu = new Scanner(System.in).next().charAt(0);
-	        int puntuar;
-	        tModo modos = null;
+		do {
+			System.out.println("1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
+			menu = new Scanner(System.in).next().charAt(0);
+
+			tModo modos = null;
 			switch (menu) {
 			case '1':
 				System.out.println("Saliste con exito");
 				System.exit(0);
 				break;
 			case '2':
-				//modos = MAX_COLORES_FACIL;
+				// modos = MAX_COLORES_FACIL;
 				generarSecuencia(MAX_COLORES_FACIL);
 				puntuar = 1;
+				System.out.println("Estas en el Modo Facil");
 				play(puntuar);
 				break;
 			case '3':
-				//modos = MAX_COLORES_DIFICIL;
+				// modos = MAX_COLORES_DIFICIL;
 				generarSecuencia(MAX_COLORES_DIFICIL);
 				puntuar = 2;
+				System.out.println("Estas en el Modo Dificil");
 				play(puntuar);
 				break;
 			default:
-				System.out.println("Opcion no disponible");
+				System.out.println("Opcion no disponible, introduce un numero valido (1-3)");
 			}
-	        
 
-	    } while (menu != '1' && menu != '2' && menu != '3');
+		} while (menu != '1' && menu != '2' && menu != '3');
+	}
+
+	/**
+	 * metodo que nos devuelve true si pistas es mayor que 0 y false si es lo contrario
+	 * @param _index
+	 * @return
+	 */
+	
+	public boolean usarAyuda(int _index) {
+		
+		_index = pistas;
+		if (_index > 0) {
+			return true;
+		}
+		return false;
+
 	}
 
 	/**
@@ -215,14 +243,13 @@ public class engine {
 	 * metodo de funcionamiento del juego
 	 */
 	private void play(int puntuar) {
-		int puntuacion = 0;
-		int pistas = 3;
+
 		int i = 0;
 		while (i < secuenciaColores.length - 2) {
-			 i++;
+			i++;
 			System.out.println("Presiona ENTER jugar...	");
 			new Scanner(System.in).nextLine();
-			for (int k = 0; k < 10; k++) {
+			for (int k = 0; k < 30; k++) {
 				System.out.println();
 			}
 			mostrarSecuencia(2 + i);
@@ -231,14 +258,14 @@ public class engine {
 			System.out.println("Presiona ENTER cuando memorices la secuencia " + i);
 			new Scanner(System.in).nextLine();
 
-			for (int k = 0; k < 10; k++) {
+			for (int k = 0; k < 30; k++) {
 				System.out.println();
 			}
 
 			System.out.println("Introduce la secuencia");
 
 			int j = -1;
-			while(j < 1 + i) {
+			while (j < 1 + i) {
 				j++;
 				System.out.println("Introduce el color en la posición " + (j + 1) + ": ");
 				System.out.println("Introduce 'X' para tener una pista (tienes " + pistas + " pistas)");
@@ -246,45 +273,46 @@ public class engine {
 				tColores colorSeleccionado = charToColores(ColorUsuario);
 
 				do {
-				if (ColorUsuario != 'x'|| ColorUsuario !='X') {
+					if (ColorUsuario != 'x' && ColorUsuario != 'X') {
 
-					if (comprobarColor(j, colorSeleccionado)) {
-						System.out.println("¡Correcto!");
-						puntuacion = puntuacion + (2 * puntuar);
+						if (comprobarColor(j, colorSeleccionado)) {
+							System.out.println("¡Correcto!");
+							puntuacion = puntuacion + (2 * puntuar);
+						} else {
+							jugador.puntuacion = puntuacion;
+							System.out.println("Incorrecto");
+							System.out.println(jugador.getPuntuacion());
+							menu();
+						}
 					} else {
-						jugador.puntuacion = puntuacion;
-						System.out.println("Incorrecto");
-						System.out.println(jugador.getPuntuacion());
-						menu();
+						usarAyuda(0);
+						if (usarAyuda(0) == true) {
+							System.out.println("El color es: " + secuenciaColores[j]);
+							pistas--;
+							if (puntuacion < 8) {
+								puntuacion = 0;
+							} else {
+								puntuacion = puntuacion - (8 * puntuar);
+							}
+						} else if (usarAyuda(0) == false) {
+							System.out.println("no tienes mas pistas");
+							j--;
+						}
 					}
-				} else if (pistas > 0) {
-					
-					System.out.println(secuenciaColores[j]);
-					pistas--;
-					if(puntuacion < 8) {
-						puntuacion = 0;
-					}else {
-						puntuacion = puntuacion - (8 * puntuar);
-					}
-				}else if(pistas == 0) {
-					System.out.println("no tienes mas pistas");
-					j--;
-				}
-				
-				}while(pistas < 0);
+				} while (pistas < 0);
 
-				if(j == 1 + i) {
+				if (j == 1 + i) {
 					puntuacion = puntuacion + (5 * puntuar);
 				}
-			if (i == secuenciaColores.length - 3) {
-				System.out.println("Has ganado, eres una fiera");
-				puntuacion = puntuacion + (40 * puntuar);
-				jugador.puntuacion = puntuacion;
-				System.out.println(jugador.getPuntuacion());
+				if (i == secuenciaColores.length - 3) {
+					System.out.println("Has ganado, eres una fiera");
+					puntuacion = puntuacion + (40 * puntuar);
+					jugador.puntuacion = puntuacion;
+					System.out.println(jugador.getPuntuacion());
+				}
+
 			}
-			
 		}
-	}
 
 	}
 }
