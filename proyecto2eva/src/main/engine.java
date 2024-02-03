@@ -17,15 +17,17 @@ public class engine {
 	enum tColores {
 		Rojo, Verde, Azul, Dorado, Blanco, Marron, Naranja
 	}
-/**
- * enum de los modos que se usa
- */
+
+	/**
+	 * enum de los modos que se usa
+	 */
 	enum tModo {
 		Facil, Dificil
 	}
-/**
- * variables inicializadas ya que se usan en mas de 1 metodo
- */
+
+	/**
+	 * variables inicializadas ya que se usan en mas de 1 metodo
+	 */
 	static int MAX_COLORES_SEQ = 15;
 	static final int MAX_COLORES_FACIL = 4;
 	static final int MAX_COLORES_DIFICIL = 7;
@@ -37,7 +39,7 @@ public class engine {
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
-	
+
 	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
 	/**
@@ -116,6 +118,7 @@ public class engine {
 
 	/**
 	 * metodo para elegir el modo que esta activo en el juego
+	 * 
 	 * @param _modos
 	 * @return
 	 */
@@ -149,6 +152,7 @@ public class engine {
 
 	/**
 	 * metodo para comprobar si el usuario ha acertado el color
+	 * 
 	 * @param _index sirve para comprobar el array de color
 	 * @param _color
 	 * @return
@@ -210,13 +214,15 @@ public class engine {
 	}
 
 	/**
-	 * metodo que nos devuelve true si pistas es mayor que 0 y false si es lo contrario
+	 * metodo que nos devuelve true si pistas es mayor que 0 y false si es lo
+	 * contrario
+	 * 
 	 * @param _index
 	 * @return
 	 */
-	
+
 	public boolean usarAyuda(int _index) {
-		
+
 		_index = pistas;
 		if (_index > 0) {
 			return true;
@@ -242,7 +248,7 @@ public class engine {
 	/**
 	 * metodo de funcionamiento del juego
 	 */
-	private void play(int puntuar) {
+	public void play(int puntuar) {
 
 		int i = 0;
 		while (i < secuenciaColores.length - 2) {
@@ -285,7 +291,7 @@ public class engine {
 							menu();
 						}
 					} else {
-						usarAyuda(0);
+						usarAyuda(pistas);
 						if (usarAyuda(0) == true) {
 							System.out.println("El color es: " + secuenciaColores[j]);
 							pistas--;

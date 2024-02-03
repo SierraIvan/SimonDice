@@ -1,27 +1,33 @@
 package main;
 
+/**
+ * Simon dice, proyecto 2ªEVA
+ * 
+ * @author Ivan Sierra Perez
+ */
 public class jugador {
+
+	public String nombre;
+	public static int puntuacion;
+
+	public jugador(String nombre) {
+		this.nombre = nombre;
+	}
+
 	/**
-	 * Simon dice, proyecto 2ªEVA
-	 * @author Ivan Sierra Perez
+	 * Nos devuelve un mensaje junto al nombre del jugador
+	 * @return
 	 */
+	public String getNombre() {
+		return "Bienvenido " + this.nombre;
+	}
 
-		
-		public String nombre;
-		public static int puntuacion;
-		
-		public jugador(String nombre) {
-			this.nombre = nombre;
-		}
+	/**
+	 * Nos devuelve un mensaje junto a la puntuacion del jugador
+	 * @return
+	 */
+	public static String getPuntuacion() {
+		return "tienes un total de " + jugador.puntuacion + " puntos";
+	}
 
-
-		public String getNombre() {
-			return "Bienvenido " + this.nombre;
-		}
-		
-		public static String getPuntuacion() {
-			return "tienes un total de " + jugador.puntuacion + " puntos";
-		}
-	
-	
 }
