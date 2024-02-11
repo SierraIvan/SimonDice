@@ -7,7 +7,7 @@ package main;
  */
 public class jugador {
 
-	public String nombre;
+	public static String nombre;
 	public static int puntuacion;
 
 	public jugador(String nombre) {
@@ -26,8 +26,8 @@ public class jugador {
 	 * Nos devuelve un mensaje junto a la puntuacion del jugador
 	 * @return
 	 */
-	public static String getPuntuacion() {
-		return "tienes un total de " + jugador.puntuacion + " puntos";
+	public static String getPuntuacion(String nombre) {
+		return nombre + " has conseguido un total de " + jugador.puntuacion + " puntos";
 	}
 
 }

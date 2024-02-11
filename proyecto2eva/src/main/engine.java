@@ -182,15 +182,16 @@ public class engine {
 	public void menu() {
 
 		char menu;
+
 		do {
-			System.out.println("1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
+			System.out.println("\n1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
+
 			menu = new Scanner(System.in).next().charAt(0);
 
 			tModo modos = null;
 			switch (menu) {
 			case '1':
 				System.out.println("Saliste con exito");
-				System.exit(0);
 				break;
 			case '2':
 				// modos = MAX_COLORES_FACIL;
@@ -211,6 +212,7 @@ public class engine {
 			}
 
 		} while (menu != '1' && menu != '2' && menu != '3');
+
 	}
 
 	/**
@@ -224,9 +226,9 @@ public class engine {
 	public boolean usarAyuda(int _index) {
 
 		_index = pistas;
-		if (_index > 0) {
+		if (_index > 0) 
 			return true;
-		}
+		
 		return false;
 
 	}
@@ -286,8 +288,8 @@ public class engine {
 							puntuacion = puntuacion + (2 * puntuar);
 						} else {
 							jugador.puntuacion = puntuacion;
-							System.out.println("Incorrecto");
-							System.out.println(jugador.getPuntuacion());
+							System.out.println("Incorrecto, has perdido, mas suerte la proxima vez");
+							System.out.println("\n" + jugador.getPuntuacion(jugador.nombre));
 							menu();
 						}
 					} else {
@@ -295,7 +297,7 @@ public class engine {
 						if (usarAyuda(0) == true) {
 							System.out.println("El color es: " + secuenciaColores[j]);
 							pistas--;
-							if (puntuacion < 8) {
+							if (puntuacion < (8 * puntuar)) {
 								puntuacion = 0;
 							} else {
 								puntuacion = puntuacion - (8 * puntuar);
@@ -307,14 +309,14 @@ public class engine {
 					}
 				} while (pistas < 0);
 
-				if (j == 1 + i) {
+				if (j == i + 1) {
 					puntuacion = puntuacion + (5 * puntuar);
 				}
 				if (i == secuenciaColores.length - 3) {
 					System.out.println("Has ganado, eres una fiera");
 					puntuacion = puntuacion + (40 * puntuar);
 					jugador.puntuacion = puntuacion;
-					System.out.println(jugador.getPuntuacion());
+					System.out.println(jugador.getPuntuacion(jugador.nombre));
 				}
 
 			}
