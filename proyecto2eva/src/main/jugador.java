@@ -27,7 +27,7 @@ public class jugador {
 	 * @return
 	 */
 	public static String getPuntuacion(String nombre) {
-		return nombre + " has conseguido un total de " + jugador.puntuacion + " puntos";
+		return nombre + " has conseguido un total de " + jugador.puntuacion + " puntos\n";
 	}
 
 }

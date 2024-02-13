@@ -14,33 +14,34 @@ public class engine {
 	/**
 	 * enum inicial de los colores con los que se va ha jugar
 	 */
-	enum tColores {
+	private enum tColores {
 		Rojo, Verde, Azul, Dorado, Blanco, Marron, Naranja
 	}
-
 	/**
 	 * enum de los modos que se usa
 	 */
-	enum tModo {
+	private enum tModo {
 		Facil, Dificil
 	}
 
 	/**
 	 * variables inicializadas ya que se usan en mas de 1 metodo
 	 */
-	static int MAX_COLORES_SEQ = 15;
-	static final int MAX_COLORES_FACIL = 4;
-	static final int MAX_COLORES_DIFICIL = 7;
-	static int puntuacion = 0;
-	static int pistas = 3;
-	static int puntuar;
+	private int MAX_COLORES_SEQ = 4;
+	private final int MAX_COLORES_FACIL = 4;
+	private final int MAX_COLORES_DIFICIL = 7;
+	private int puntuacion = 0;
+	private int pistas = 3;
+	private int puntuar;
+	private tModo modo;
+	private boolean fallo = true;
 
 	/**
 	 * array donde se guardan los colores y numero fijo de numero maximo de
 	 * secuencia
 	 */
 
-	static tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
+	private tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
 
 	/**
 	 * metodo que proporcionamos la primera letra de cada color y nos devuelve un
@@ -143,10 +144,10 @@ public class engine {
 	 */
 	public void generarSecuencia(int _numColores) {
 
-		for (int i = 0; i < secuenciaColores.length; i++) {
+		for (int i = 0; i < this.secuenciaColores.length; i++) {
 			Random random = new Random();
 			int aleatorio = random.nextInt(0, _numColores);
-			secuenciaColores[i] = intToColor(aleatorio);
+			this.secuenciaColores[i] = intToColor(aleatorio);
 		}
 	}
 
@@ -159,7 +160,7 @@ public class engine {
 	 */
 	public boolean comprobarColor(int _index, tColores _color) {
 
-		return secuenciaColores[_index] == _color;
+		return this.secuenciaColores[_index] == _color;
 
 	}
 
@@ -171,7 +172,7 @@ public class engine {
 	public void mostrarSecuencia(int _numero) {
 
 		for (int i = 0; i < _numero; i++) {
-			System.out.print(secuenciaColores[i] + " ");
+			System.out.print(this.secuenciaColores[i] + " ");
 		}
 	}
 
@@ -181,37 +182,7 @@ public class engine {
 
 	public void menu() {
 
-		char menu;
-
-		do {
-			System.out.println("\n1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
-
-			menu = new Scanner(System.in).next().charAt(0);
-
-			tModo modos = null;
-			switch (menu) {
-			case '1':
-				System.out.println("Saliste con exito");
-				break;
-			case '2':
-				// modos = MAX_COLORES_FACIL;
-				generarSecuencia(MAX_COLORES_FACIL);
-				puntuar = 1;
-				System.out.println("Estas en el Modo Facil");
-				play(puntuar);
-				break;
-			case '3':
-				// modos = MAX_COLORES_DIFICIL;
-				generarSecuencia(MAX_COLORES_DIFICIL);
-				puntuar = 2;
-				System.out.println("Estas en el Modo Dificil");
-				play(puntuar);
-				break;
-			default:
-				System.out.println("Opcion no disponible, introduce un numero valido (1-3)");
-			}
-
-		} while (menu != '1' && menu != '2' && menu != '3');
+		System.out.println("\n1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
 
 	}
 
@@ -225,10 +196,8 @@ public class engine {
 
 	public boolean usarAyuda(int _index) {
 
-		_index = pistas;
 		if (_index > 0) 
 			return true;
-		
 		return false;
 
 	}
@@ -243,21 +212,58 @@ public class engine {
 		jugador nombrejugador = new jugador(nombre.nextLine());
 		System.out.println(nombrejugador.getNombre());
 		menu();
-		nombre.close();
+		char menu;
+
+		do {
+			
+
+			menu = new Scanner(System.in).next().charAt(0);
+			switch (menu) {
+			case '1':
+				//salir
+				System.out.println("Saliste con exito");
+				//System.exit(0);
+				break;
+			case '2':
+				// modos facil
+				this.modo = tModo.Facil;
+				this.puntuar = 1;
+				System.out.println("Estas en el Modo Facil");
+				generarSecuencia(this.MAX_COLORES_FACIL);
+				play(tModo.Facil);
+				break;
+			case '3':
+				// modo dificil
+				this.modo = tModo.Dificil;
+				this.puntuar = 2;
+				System.out.println("Estas en el Modo Dificil");
+				generarSecuencia(this.MAX_COLORES_DIFICIL);
+				play(tModo.Dificil);
+				break;
+			default:
+				System.out.println("Opcion no disponible, introduce un numero valido (1-3)");
+			}
+
+		} while (menu != '1' && menu != '2' && menu != '3');
 
 	}
 
 	/**
 	 * metodo de funcionamiento del juego
 	 */
-	public void play(int puntuar) {
-
+	public int play(tModo modo) {
+		
+		if(this.modo == tModo.Facil) {
+			generarSecuencia(this.MAX_COLORES_FACIL);
+		}else {
+			generarSecuencia(this.MAX_COLORES_DIFICIL);
+		}
 		int i = 0;
-		while (i < secuenciaColores.length - 2) {
+		while (i < this.secuenciaColores.length - 2 && this.fallo == true) {
 			i++;
 			System.out.println("Presiona ENTER jugar...	");
 			new Scanner(System.in).nextLine();
-			for (int k = 0; k < 30; k++) {
+			for (int k = 0; k < 1; k++) {
 				System.out.println();
 			}
 			mostrarSecuencia(2 + i);
@@ -266,17 +272,17 @@ public class engine {
 			System.out.println("Presiona ENTER cuando memorices la secuencia " + i);
 			new Scanner(System.in).nextLine();
 
-			for (int k = 0; k < 30; k++) {
+			for (int k = 0; k < 1; k++) {
 				System.out.println();
 			}
 
 			System.out.println("Introduce la secuencia");
 
 			int j = -1;
-			while (j < 1 + i) {
+			while (j < 1 + i && this.fallo == true) {
 				j++;
 				System.out.println("Introduce el color en la posición " + (j + 1) + ": ");
-				System.out.println("Introduce 'X' para tener una pista (tienes " + pistas + " pistas)");
+				System.out.println("Introduce 'X' para tener una pista (tienes " + this.pistas + " pistas)");
 				char ColorUsuario = new Scanner(System.in).next().charAt(0);
 				tColores colorSeleccionado = charToColores(ColorUsuario);
 
@@ -285,24 +291,24 @@ public class engine {
 
 						if (comprobarColor(j, colorSeleccionado)) {
 							System.out.println("¡Correcto!");
-							puntuacion = puntuacion + (2 * puntuar);
+							this.puntuacion = this.puntuacion + (2 * puntuar);
 						} else {
-							jugador.puntuacion = puntuacion;
+							jugador.puntuacion = this.puntuacion;
 							System.out.println("Incorrecto, has perdido, mas suerte la proxima vez");
 							System.out.println("\n" + jugador.getPuntuacion(jugador.nombre));
-							menu();
+							this.fallo = false;
+							
 						}
 					} else {
-						usarAyuda(pistas);
-						if (usarAyuda(0) == true) {
-							System.out.println("El color es: " + secuenciaColores[j]);
-							pistas--;
-							if (puntuacion < (8 * puntuar)) {
-								puntuacion = 0;
+						if (usarAyuda(this.pistas) == true) {
+							System.out.println("El color es: " + this.secuenciaColores[j]);
+							this.pistas--;
+							if (this.puntuacion < (8 * puntuar)) {
+								this.puntuacion = 0;
 							} else {
-								puntuacion = puntuacion - (8 * puntuar);
+								this.puntuacion = this.puntuacion - (8 * puntuar);
 							}
-						} else if (usarAyuda(0) == false) {
+						} else if (usarAyuda(pistas) == false) {
 							System.out.println("no tienes mas pistas");
 							j--;
 						}
@@ -310,17 +316,19 @@ public class engine {
 				} while (pistas < 0);
 
 				if (j == i + 1) {
-					puntuacion = puntuacion + (5 * puntuar);
+					this.puntuacion = this.puntuacion + (5 * puntuar);
 				}
-				if (i == secuenciaColores.length - 3) {
-					System.out.println("Has ganado, eres una fiera");
-					puntuacion = puntuacion + (40 * puntuar);
-					jugador.puntuacion = puntuacion;
+				
+				}if (i == this.secuenciaColores.length - 2) {
+					System.out.println("Has ganado, eres una fiera\n ");
+					this.puntuacion = this.puntuacion + (40 * puntuar);
+					jugador.puntuacion = this.puntuacion;
 					System.out.println(jugador.getPuntuacion(jugador.nombre));
-				}
-
+				
 			}
+					
 		}
-
+		start();
+		return puntuacion;
 	}
 }
