@@ -26,7 +26,7 @@ public class jugador {
 	 * Nos devuelve un mensaje junto a la puntuacion del jugador
 	 * @return
 	 */
-	public static String getPuntuacion(String nombre) {
+	public static String getPuntuacion (String nombre) {
 		return nombre + " has conseguido un total de " + jugador.puntuacion + " puntos\n";
 	}
 

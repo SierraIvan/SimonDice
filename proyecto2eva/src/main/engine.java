@@ -211,41 +211,37 @@ public class engine {
 		System.out.println("Como te llamas ");
 		jugador nombrejugador = new jugador(nombre.nextLine());
 		System.out.println(nombrejugador.getNombre());
-		menu();
+		
 		char menu;
 
-		do {
-			
-
+		//do {
+		do{
+			menu();
 			menu = new Scanner(System.in).next().charAt(0);
+
 			switch (menu) {
 			case '1':
 				//salir
 				System.out.println("Saliste con exito");
-				//System.exit(0);
 				break;
+
 			case '2':
-				// modos facil
 				this.modo = tModo.Facil;
 				this.puntuar = 1;
-				System.out.println("Estas en el Modo Facil");
-				generarSecuencia(this.MAX_COLORES_FACIL);
 				play(tModo.Facil);
 				break;
 			case '3':
-				// modo dificil
 				this.modo = tModo.Dificil;
 				this.puntuar = 2;
-				System.out.println("Estas en el Modo Dificil");
-				generarSecuencia(this.MAX_COLORES_DIFICIL);
 				play(tModo.Dificil);
 				break;
-			default:
-				System.out.println("Opcion no disponible, introduce un numero valido (1-3)");
+
 			}
+			}while(menu != '1');
 
-		} while (menu != '1' && menu != '2' && menu != '3');
-
+		//} while (menu != '1' && menu != '2' && menu != '3');
+		
+		
 	}
 
 	/**
@@ -254,8 +250,10 @@ public class engine {
 	public int play(tModo modo) {
 		
 		if(this.modo == tModo.Facil) {
+			System.out.println("Estas en el Modo Facil");
 			generarSecuencia(this.MAX_COLORES_FACIL);
 		}else {
+			System.out.println("Estas en el Modo Dificil");
 			generarSecuencia(this.MAX_COLORES_DIFICIL);
 		}
 		int i = 0;
@@ -328,7 +326,6 @@ public class engine {
 			}
 					
 		}
-		start();
 		return puntuacion;
 	}
 }
