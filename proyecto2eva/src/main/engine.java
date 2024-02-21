@@ -17,6 +17,7 @@ public class engine {
 	private enum tColores {
 		Rojo, Verde, Azul, Dorado, Blanco, Marron, Naranja
 	}
+
 	/**
 	 * enum de los modos que se usa
 	 */
@@ -182,7 +183,8 @@ public class engine {
 
 	public void menu() {
 
-		System.out.println("\n1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil");
+		System.out.println(
+				"\n1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil\n4 - Ver 10 mejores jugadores || 5 - Ver jugador con la puntuacion mas alta.");
 
 	}
 
@@ -196,7 +198,7 @@ public class engine {
 
 	public boolean usarAyuda(int _index) {
 
-		if (_index > 0) 
+		if (_index > 0)
 			return true;
 		return false;
 
@@ -206,53 +208,58 @@ public class engine {
 	 * metodo de inicio del juego
 	 */
 	public void start() {
+		char menu;
+		//do {
+		
 		Scanner nombre = new Scanner(System.in);
 		System.out.println("Bienvenido a Simon dice");
 		System.out.println("Como te llamas ");
-		jugador nombrejugador = new jugador(nombre.nextLine());
-		System.out.println(nombrejugador.getNombre());
-		
-		char menu;
+		jugador jugador = new jugador(nombre.nextLine(), 0);
+		System.out.println(jugador.getNombre());
+		Record record = new Record(jugador,puntuacion);
+		record.anadirjugador(jugador);
 
-		//do {
-		do{
+		
+
+		 do {
+		
 			menu();
 			menu = new Scanner(System.in).next().charAt(0);
 
 			switch (menu) {
 			case '1':
-				//salir
 				System.out.println("Saliste con exito");
 				break;
 
 			case '2':
 				this.modo = tModo.Facil;
 				this.puntuar = 1;
-				play(tModo.Facil);
+				jugador.setPuntuacion(play(tModo.Facil));
 				break;
 			case '3':
 				this.modo = tModo.Dificil;
 				this.puntuar = 2;
-				play(tModo.Dificil);
+				jugador.setPuntuacion(play(tModo.Dificil));
 				break;
+			default:
+				System.out.println("introduce un numero valido, 1-3");
 
 			}
-			}while(menu != '1');
+		} while (menu != '1');
 
-		//} while (menu != '1' && menu != '2' && menu != '3');
-		
-		
+		// } while (menu != '1' && menu != '2' && menu != '3');
+
 	}
 
 	/**
 	 * metodo de funcionamiento del juego
 	 */
 	public int play(tModo modo) {
-		
-		if(this.modo == tModo.Facil) {
+
+		if (this.modo == tModo.Facil) {
 			System.out.println("Estas en el Modo Facil");
 			generarSecuencia(this.MAX_COLORES_FACIL);
-		}else {
+		} else {
 			System.out.println("Estas en el Modo Dificil");
 			generarSecuencia(this.MAX_COLORES_DIFICIL);
 		}
@@ -295,7 +302,7 @@ public class engine {
 							System.out.println("Incorrecto, has perdido, mas suerte la proxima vez");
 							System.out.println("\n" + jugador.getPuntuacion(jugador.nombre));
 							this.fallo = false;
-							
+
 						}
 					} else {
 						if (usarAyuda(this.pistas) == true) {
@@ -316,16 +323,24 @@ public class engine {
 				if (j == i + 1) {
 					this.puntuacion = this.puntuacion + (5 * puntuar);
 				}
-				
-				}if (i == this.secuenciaColores.length - 2) {
-					System.out.println("Has ganado, eres una fiera\n ");
-					this.puntuacion = this.puntuacion + (40 * puntuar);
-					jugador.puntuacion = this.puntuacion;
-					System.out.println(jugador.getPuntuacion(jugador.nombre));
-				
+
 			}
-					
+			if (i == this.secuenciaColores.length - 2) {
+				System.out.println("Has ganado, eres una fiera\n ");
+				this.puntuacion = this.puntuacion + (40 * puntuar);
+				jugador.puntuacion = this.puntuacion;
+				System.out.println(jugador.getPuntuacion(jugador.nombre));
+
+			}
+
 		}
-		return puntuacion;
+		return this.puntuacion;
 	}
 }
+//hacer en la puntuacion algo raro que no tengo muy claro, si hay 2 jugadores con la misma puntuacion maxima, se mostraran los 2 jugadores
+//record
+//cont va a decir cuantos jugadores tiene el juego
+//metodo buscarjugador, que busque en el array de jugadores el jugador con ese nombre, si lo encuentra, retorna un jugador
+//metodo ordenarranking tiene que ordenar de forma descendente a la puntuacion
+//metodo showranking muestra los n mejores jugadores
+//metodo showbestplay muestra el jugador con mas puntos, si hay n con la misma putuacion maxima, muestra los n
