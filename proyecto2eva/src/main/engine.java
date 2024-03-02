@@ -28,10 +28,10 @@ public class engine {
 	/**
 	 * variables inicializadas ya que se usan en mas de 1 metodo
 	 */
-	private int MAX_COLORES_SEQ = 4;
+	private final int MAX_COLORES_SEQ = 3;
 	private final int MAX_COLORES_FACIL = 4;
 	private final int MAX_COLORES_DIFICIL = 7;
-	private int puntuacion = 0;
+	int puntuacion = 0;
 	private int pistas = 3;
 	private int puntuar;
 	private tModo modo;
@@ -43,6 +43,7 @@ public class engine {
 	 */
 
 	private tColores[] secuenciaColores = new tColores[MAX_COLORES_SEQ];
+	private String nombre;
 
 	/**
 	 * metodo que proporcionamos la primera letra de cada color y nos devuelve un
@@ -184,7 +185,7 @@ public class engine {
 	public void menu() {
 
 		System.out.println(
-				"\n1 - Salir || 2 - jugar modo facil || 3 - jugar modo dificil\n4 - Ver 10 mejores jugadores || 5 - Ver jugador con la puntuacion mas alta.");
+				"\n1 - Salir\n2 - jugar modo facil\n3 - jugar modo dificil\n4 - Ver 10 mejores jugadores\n5 - Ver jugador con la puntuacion mas alta.");
 
 	}
 
@@ -208,21 +209,18 @@ public class engine {
 	 * metodo de inicio del juego
 	 */
 	public void start() {
+		jugador jugador = null;
+		Record record = new Record(jugador, puntuacion);
 		char menu;
-		//do {
-		
-		Scanner nombre = new Scanner(System.in);
-		System.out.println("Bienvenido a Simon dice");
-		System.out.println("Como te llamas ");
-		jugador jugador = new jugador(nombre.nextLine(), 0);
-		System.out.println(jugador.getNombre());
-		Record record = new Record(jugador,puntuacion);
-		record.anadirjugador(jugador);
-
-		
-
-		 do {
-		
+		// do {
+		do {
+			Scanner nombre = new Scanner(System.in);
+			System.out.println("Bienvenido a Simon dice");
+			System.out.println("Como te llamas ");
+			jugador = new jugador(nombre.nextLine(), puntuacion);
+			System.out.println(jugador.getNombre());
+			record.anadirjugador(jugador);
+			
 			menu();
 			menu = new Scanner(System.in).next().charAt(0);
 
@@ -230,17 +228,21 @@ public class engine {
 			case '1':
 				System.out.println("Saliste con exito");
 				break;
-
 			case '2':
 				this.modo = tModo.Facil;
 				this.puntuar = 1;
-				jugador.setPuntuacion(play(tModo.Facil));
+				jugador.getPuntuacion(play(tModo.Facil));
 				break;
 			case '3':
 				this.modo = tModo.Dificil;
 				this.puntuar = 2;
-				jugador.setPuntuacion(play(tModo.Dificil));
+				jugador.getPuntuacion(play(tModo.Dificil));
 				break;
+			case '4':
+				record.showranking();
+				break;
+			case '5':
+				record.showbestplay();
 			default:
 				System.out.println("introduce un numero valido, 1-3");
 
@@ -255,7 +257,8 @@ public class engine {
 	 * metodo de funcionamiento del juego
 	 */
 	public int play(tModo modo) {
-
+		this.fallo = true;
+		this.puntuacion = 0;
 		if (this.modo == tModo.Facil) {
 			System.out.println("Estas en el Modo Facil");
 			generarSecuencia(this.MAX_COLORES_FACIL);
@@ -296,11 +299,11 @@ public class engine {
 
 						if (comprobarColor(j, colorSeleccionado)) {
 							System.out.println("¡Correcto!");
-							this.puntuacion = this.puntuacion + (2 * puntuar);
+							this.puntuacion = this.puntuacion + (5 * puntuar);
 						} else {
+							jugador jugador = new jugador(this.nombre, this.puntuacion);
 							jugador.puntuacion = this.puntuacion;
 							System.out.println("Incorrecto, has perdido, mas suerte la proxima vez");
-							System.out.println("\n" + jugador.getPuntuacion(jugador.nombre));
 							this.fallo = false;
 
 						}
@@ -320,20 +323,26 @@ public class engine {
 					}
 				} while (pistas < 0);
 
-				if (j == i + 1) {
-					this.puntuacion = this.puntuacion + (5 * puntuar);
+				if (j == i + 1 && this.fallo == true) {
+					this.puntuacion = this.puntuacion + (10 * puntuar);
 				}
 
 			}
-			if (i == this.secuenciaColores.length - 2) {
+			if (i == this.secuenciaColores.length - 2 && this.fallo == true) {
 				System.out.println("Has ganado, eres una fiera\n ");
-				this.puntuacion = this.puntuacion + (40 * puntuar);
-				jugador.puntuacion = this.puntuacion;
-				System.out.println(jugador.getPuntuacion(jugador.nombre));
+				// this.puntuacion = this.puntuacion + (40 * puntuar);
 
 			}
 
 		}
+
+		jugador jugador = new jugador(this.nombre, this.puntuacion);
+		//Record record = new Record(jugador, this.puntuacion);
+		//record.anadirjugador(jugador);
+
+		jugador.puntuacion = this.puntuacion;
+
+		System.out.println(jugador.setPuntuacion());
 		return this.puntuacion;
 	}
 }
