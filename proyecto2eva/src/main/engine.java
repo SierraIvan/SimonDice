@@ -202,7 +202,6 @@ public class engine {
 		if (_index > 0)
 			return true;
 		return false;
-
 	}
 
 	/**
@@ -210,26 +209,26 @@ public class engine {
 	 */
 	public void start() {
 		jugador jugador = null;
-		Record record = new Record(jugador, puntuacion);
-		/*jugador jugador1 = new jugador("Ivan", 33);
-		jugador jugador2 = new jugador("Santi", 20);
-		jugador jugador3 = new jugador("Hugo", 20);
-		jugador jugador4 = new jugador("Caye", 30);
+		Record record = new Record(jugador, this.puntuacion);
+		jugador jugador1 = new jugador("Ivan", 33);
+//		jugador jugador2 = new jugador("Santi", 20);
+//		jugador jugador3 = new jugador("Hugo", 20);
+//		jugador jugador4 = new jugador("Caye", 1);
+//
 		record.anadirjugador(jugador1);
-		record.anadirjugador(jugador2);
-		record.anadirjugador(jugador3);
-		record.anadirjugador(jugador4);*/
+//		record.anadirjugador(jugador2);
+//		record.anadirjugador(jugador3);
+//		record.anadirjugador(jugador4);
+
 		char menu;
 		// do {
 		do {
 			Scanner nombre = new Scanner(System.in);
 			System.out.println("Bienvenido a Simon dice");
 			System.out.println("Como te llamas ");
-			jugador = new jugador(nombre.nextLine(), puntuacion);
-			//System.out.println(jugador.getNombre());
-			
-			
-			
+			jugador = new jugador(nombre.nextLine(), this.puntuacion);
+			// System.out.println(jugador.getNombre());
+
 			menu();
 			menu = new Scanner(System.in).next().charAt(0);
 
@@ -240,15 +239,16 @@ public class engine {
 			case '2':
 				this.modo = tModo.Facil;
 				this.puntuar = 1;
+				
 				jugador.setPuntuacion(play(tModo.Facil));
-				jugador = new jugador(jugador.getNombre(), puntuacion);
+				jugador = new jugador(jugador.getNombre(), this.puntuacion);
 				record.anadirjugador(jugador);
 				break;
 			case '3':
 				this.modo = tModo.Dificil;
 				this.puntuar = 2;
 				jugador.setPuntuacion(play(tModo.Dificil));
-				jugador = new jugador(jugador.getNombre(), puntuacion);
+				jugador = new jugador(jugador.getNombre(), this.puntuacion);
 				record.anadirjugador(jugador);
 				break;
 			case '4':
@@ -258,12 +258,10 @@ public class engine {
 				record.showbestplay();
 				break;
 			default:
-				System.out.println("introduce un numero valido, 1-3");
+				System.out.println("Error, numero no valido, proceder a reiniciar...");
 
 			}
 		} while (menu != '1');
-
-		// } while (menu != '1' && menu != '2' && menu != '3');
 
 	}
 
@@ -271,6 +269,7 @@ public class engine {
 	 * metodo de funcionamiento del juego
 	 */
 	public int play(tModo modo) {
+		pistas = 3;
 		this.fallo = true;
 		this.puntuacion = 0;
 		if (this.modo == tModo.Facil) {
@@ -345,17 +344,11 @@ public class engine {
 			if (i == this.secuenciaColores.length - 2 && this.fallo == true) {
 				System.out.println("Has ganado, eres una fiera\n ");
 				// this.puntuacion = this.puntuacion + (40 * puntuar);
-
 			}
-
 		}
 
 		jugador jugador = new jugador(this.nombre, this.puntuacion);
-		//Record record = new Record(jugador, this.puntuacion);
-		//record.anadirjugador(jugador);
-
-		jugador.puntuacion = this.puntuacion;
-
+		//jugador.puntuacion = this.puntuacion;
 		System.out.println(jugador.setPuntuacion(puntuacion));
 		return this.puntuacion;
 	}
