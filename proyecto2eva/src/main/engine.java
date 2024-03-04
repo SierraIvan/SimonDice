@@ -211,6 +211,14 @@ public class engine {
 	public void start() {
 		jugador jugador = null;
 		Record record = new Record(jugador, puntuacion);
+		/*jugador jugador1 = new jugador("Ivan", 33);
+		jugador jugador2 = new jugador("Santi", 20);
+		jugador jugador3 = new jugador("Hugo", 20);
+		jugador jugador4 = new jugador("Caye", 30);
+		record.anadirjugador(jugador1);
+		record.anadirjugador(jugador2);
+		record.anadirjugador(jugador3);
+		record.anadirjugador(jugador4);*/
 		char menu;
 		// do {
 		do {
@@ -218,8 +226,9 @@ public class engine {
 			System.out.println("Bienvenido a Simon dice");
 			System.out.println("Como te llamas ");
 			jugador = new jugador(nombre.nextLine(), puntuacion);
-			System.out.println(jugador.getNombre());
-			record.anadirjugador(jugador);
+			//System.out.println(jugador.getNombre());
+			
+			
 			
 			menu();
 			menu = new Scanner(System.in).next().charAt(0);
@@ -231,18 +240,23 @@ public class engine {
 			case '2':
 				this.modo = tModo.Facil;
 				this.puntuar = 1;
-				jugador.getPuntuacion(play(tModo.Facil));
+				jugador.setPuntuacion(play(tModo.Facil));
+				jugador = new jugador(jugador.getNombre(), puntuacion);
+				record.anadirjugador(jugador);
 				break;
 			case '3':
 				this.modo = tModo.Dificil;
 				this.puntuar = 2;
-				jugador.getPuntuacion(play(tModo.Dificil));
+				jugador.setPuntuacion(play(tModo.Dificil));
+				jugador = new jugador(jugador.getNombre(), puntuacion);
+				record.anadirjugador(jugador);
 				break;
 			case '4':
 				record.showranking();
 				break;
 			case '5':
 				record.showbestplay();
+				break;
 			default:
 				System.out.println("introduce un numero valido, 1-3");
 
@@ -342,14 +356,7 @@ public class engine {
 
 		jugador.puntuacion = this.puntuacion;
 
-		System.out.println(jugador.setPuntuacion());
+		System.out.println(jugador.setPuntuacion(puntuacion));
 		return this.puntuacion;
 	}
 }
-//hacer en la puntuacion algo raro que no tengo muy claro, si hay 2 jugadores con la misma puntuacion maxima, se mostraran los 2 jugadores
-//record
-//cont va a decir cuantos jugadores tiene el juego
-//metodo buscarjugador, que busque en el array de jugadores el jugador con ese nombre, si lo encuentra, retorna un jugador
-//metodo ordenarranking tiene que ordenar de forma descendente a la puntuacion
-//metodo showranking muestra los n mejores jugadores
-//metodo showbestplay muestra el jugador con mas puntos, si hay n con la misma putuacion maxima, muestra los n

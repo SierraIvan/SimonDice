@@ -29,7 +29,7 @@ public class jugador {
 		return "Bienvenido " + this.nombre;
 	}
 
-	public int getPuntuacion(int puntuacion) {
+	public int getPuntuacion() {
 		return this.puntuacion;
 	}
 
@@ -38,7 +38,7 @@ public class jugador {
 	 * 
 	 * @return
 	 */
-	public String setPuntuacion() {
+	public String setPuntuacion(int puntuacion) {
 		return "consiguió un total de " + puntuacion + " puntos\n";
 	}
 

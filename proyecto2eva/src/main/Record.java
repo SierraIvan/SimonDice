@@ -31,27 +31,34 @@ public class Record {
 
 	}
 	public void ordenarranking() {
-	    jugador temp;
-	    for (int i = 0; i < jugadores.length; i++) {
-	        for (int j = 0; j < jugadores.length - i - 1; j++) {
-	            if (jugadores[j].getPuntuacion(puntuacion) >= jugadores[j + 1].getPuntuacion(puntuacion)) {
-	                temp = jugadores[j + 1];
-	                jugadores[j + 1] = jugadores[j];
-	                jugadores[j] = temp;
+		 for (int i = 0; i < this.cont; i++) {
+	            for (int j = 0; j < (this.cont - i - 1); j++) {
+	                if (this.jugadores[j].getPuntuacion() < this.jugadores[j + 1].getPuntuacion()) {
+	                    jugador temp = this.jugadores[j + 1];
+	                    this.jugadores[j + 1] = this.jugadores[j];
+	                    this.jugadores[j] = temp;
+	                }
 	            }
 	        }
-	    }
 	}
 
 	public void showranking() {
+		ordenarranking();
 	    for (int i = 0; i < cont; i++) {
-	        System.out.println(jugadores[i].getNombre() + " " + jugadores[i].getPuntuacion(puntuacion));
+	        System.out.println(jugadores[i].getNombre() + " " + jugadores[i].getPuntuacion());
 	    }
 	}
 
 	public void showbestplay() {
-
-		System.out.println(jugadores[0].getNombre() + " " + jugadores[0].getPuntuacion(puntuacion));
+		ordenarranking();
+		System.out.println(jugadores[0].getNombre() + " " + jugadores[0].getPuntuacion());
+		for(int i = 0; i < cont - 1;i++) {
+		if(jugadores[0].getPuntuacion() == jugadores[i + 1].getPuntuacion()) {
+		System.out.println(jugadores[i + 1].getNombre() + " " + jugadores[i + 1].getPuntuacion());
+		}
+			
+		}
+		
 			
 		
 
