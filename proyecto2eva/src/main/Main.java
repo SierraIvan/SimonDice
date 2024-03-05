@@ -5,7 +5,7 @@ package main;
  * 
  * @author Ivan Sierra Perez
  */
-public class main {
+public class Main {
 
 	/**
 	 * Metodo de entrada de la clase main
@@ -14,7 +14,7 @@ public class main {
 	 */
 	public static void main(String[] args) {
 
-		engine engine = new engine();
+		Engine engine = new Engine();
 		engine.start();
 
 	}

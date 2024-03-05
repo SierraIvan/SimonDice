@@ -5,12 +5,12 @@ package main;
  * 
  * @author Ivan Sierra Perez
  */
-public class jugador {
+public class Jugador {
 
 	public String nombre;
 	public int puntuacion;
 
-	public jugador(String nombre, int puntuacion) {
+	public Jugador(String nombre, int puntuacion) {
 		this.nombre = nombre;
 		this.puntuacion = puntuacion;
 	}

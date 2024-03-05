@@ -8,24 +8,23 @@ package main;
 
 public class Record {
 	private int cont = 0;
-	private int MAX_JUGADORES = 5;
+	private int MAX_JUGADORES = 10;
 
-	private jugador[] jugadores = new jugador[MAX_JUGADORES];
-	jugador jugador;
+	private Jugador[] jugadores = new Jugador[MAX_JUGADORES];
+	Jugador jugador;
 	int puntuacion;
 
-	public Record(jugador nombre, int puntuacion) {
-		engine engine = new engine();
+	public Record(Jugador nombre, int puntuacion) {
+		Engine engine = new Engine();
 		this.jugador = nombre;
 		this.puntuacion = engine.puntuacion;
 	}
-
 	/**
 	 * metodo para añadir un jugador al array jugadores
 	 * 
 	 * @param jugador
 	 */
-	public void anadirjugador(jugador jugador) {
+	public void anadirjugador(Jugador jugador) {
 		
 		//se muestran los primeros jugadores leidos, depediendo de MAX_JUGADORES
 		
@@ -56,7 +55,7 @@ public class Record {
 		for (int i = 0; i < this.cont; i++) {
 			for (int j = 0; j < (this.cont - i - 1); j++) {
 				if (this.jugadores[j].getPuntuacion() < this.jugadores[j + 1].getPuntuacion()) {
-					jugador temp = this.jugadores[j + 1];
+					Jugador temp = this.jugadores[j + 1];
 					this.jugadores[j + 1] = this.jugadores[j];
 					this.jugadores[j] = temp;
 				}
