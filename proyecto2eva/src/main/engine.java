@@ -211,14 +211,14 @@ public class engine {
 		jugador jugador = null;
 		Record record = new Record(jugador, this.puntuacion);
 		jugador jugador1 = new jugador("Ivan", 33);
-//		jugador jugador2 = new jugador("Santi", 20);
-//		jugador jugador3 = new jugador("Hugo", 20);
-//		jugador jugador4 = new jugador("Caye", 1);
+		jugador jugador2 = new jugador("Santi", 20);
+		jugador jugador3 = new jugador("Hugo", 20);
+		jugador jugador4 = new jugador("Caye", 1);
 //
 		record.anadirjugador(jugador1);
-//		record.anadirjugador(jugador2);
-//		record.anadirjugador(jugador3);
-//		record.anadirjugador(jugador4);
+		record.anadirjugador(jugador2);
+		record.anadirjugador(jugador3);
+		record.anadirjugador(jugador4);
 
 		char menu;
 		// do {

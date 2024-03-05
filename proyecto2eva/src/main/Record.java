@@ -8,7 +8,7 @@ package main;
 
 public class Record {
 	private int cont = 0;
-	private int MAX_JUGADORES = 10;
+	private int MAX_JUGADORES = 5;
 
 	private jugador[] jugadores = new jugador[MAX_JUGADORES];
 	jugador jugador;
@@ -26,12 +26,27 @@ public class Record {
 	 * @param jugador
 	 */
 	public void anadirjugador(jugador jugador) {
-
+		
+		//se muestran los primeros jugadores leidos, depediendo de MAX_JUGADORES
+		
+		if(cont >= MAX_JUGADORES) {
+			cont = MAX_JUGADORES;
+		}else {
 		jugadores[cont] = jugador;
-		// System.out.println(jugadores[cont].getNombre());
+		}
+		cont++;
+		
+		
+//se sustituye el jugador con menos puntuacion por un jugador nuevo
+		/*if(cont == MAX_JUGADORES) {
+			ordenarranking();
+			jugadores[cont - 1] = jugador;
+		}else {
+		
+		jugadores[cont] = jugador;
 
 		this.cont++;
-
+		}*/
 	}
 
 	/**
@@ -53,12 +68,13 @@ public class Record {
 	 * metodo para mostrar el ranking de los jugadores
 	 */
 	public void showranking() {
-		if (cont > 10) {
-			cont = 10;
+		if (cont > MAX_JUGADORES) {
+			cont = MAX_JUGADORES;
 		}
 		ordenarranking();
 		for (int i = 0; i < cont; i++) {
 			System.out.println(jugadores[i].getNombre() + " " + jugadores[i].getPuntuacion());
+		
 		}
 	}
 	/**
