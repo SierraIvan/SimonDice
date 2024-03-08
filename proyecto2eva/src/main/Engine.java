@@ -209,26 +209,32 @@ public class Engine {
 	 */
 	public void start() {
 		Jugador jugador = null;
-		Record record = new Record(jugador, this.puntuacion);
+		Record record = new Record();
 		Jugador jugador1 = new Jugador("Ivan", 33);
-		Jugador jugador2 = new Jugador("Santi", 20);
-		Jugador jugador3 = new Jugador("Hugo", 20);
-		Jugador jugador4 = new Jugador("Caye", 1);
+		Jugador jugador2 = new Jugador("Santi", 33);
+		Jugador jugador3 = new Jugador("Hugo", 33);
+		Jugador jugador4 = new Jugador("Caye", 33);
+		Jugador jugador5 = new Jugador("Marcos", 33 );
+		Jugador jugador6 = new Jugador("Emi", 33);
+		Jugador jugador7 = new Jugador("Oscar", 30);
 //
 		record.anadirjugador(jugador1);
 		record.anadirjugador(jugador2);
 		record.anadirjugador(jugador3);
 		record.anadirjugador(jugador4);
+		record.anadirjugador(jugador5);
+		record.anadirjugador(jugador6);
+		record.anadirjugador(jugador7);
 
 		char menu;
-		// do {
-		do {
+		 do {
+		
 			Scanner nombre = new Scanner(System.in);
 			System.out.println("Bienvenido a Simon dice");
 			System.out.println("Como te llamas ");
 			jugador = new Jugador(nombre.nextLine(), this.puntuacion);
 			// System.out.println(jugador.getNombre());
-
+			//do {
 			menu();
 			menu = new Scanner(System.in).next().charAt(0);
 
